@@ -7,13 +7,11 @@ module.exports = {
   cache: true,
   debug: true,
   entry: {
-    bundle: './src/js/main.jsx'
+    test: 'mocha!./test/all.spec.js'
   },
   output: {
-    path: __dirname + '/dist/assets/',
-    publicPath: "/assets/",
-    filename: '[name].js',
-    chunkFilename: '[id].js'
+    path: __dirname + '',
+    filename: 'testBundle.js'
   },
   module: {
     loaders: [
@@ -33,9 +31,6 @@ module.exports = {
       // React (JSX) + ES6
       { test: /\.(es6|jsx)$/, exclude: /node_modules/, loader: 'babel-loader'},
 
-      {
-         test: /sinon\.js$/, loader: "imports?define=>false"
-      }
     ],
     noParse: /\.min\.js/
   },
