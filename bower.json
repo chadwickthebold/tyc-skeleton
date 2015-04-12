@@ -1,0 +1,27 @@
+{
+  "name": "tyc-skeleton",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chadwickthebold/tyc-skeleton",
+  "authors": [
+    "Tyler Chadwick <chadwickthebold@gmail.com>"
+  ],
+  "description": "A framework for future projects",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone.localStorage": "~1.1.16",
+    "backbone": "~1.1.2",
+    "normalize": "~1.0.4",
+    "react": "~0.13.1",
+    "velocity": "~1.2.2"
+  },
+  "devDependencies": {
+    "fontawesome": "~4.3.0"
+  }
+}

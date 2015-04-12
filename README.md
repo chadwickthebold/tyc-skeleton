@@ -8,3 +8,5 @@ This project is a skeleton framework for developing apps with my preferred toolk
 * Webpack
 * Backbone
 * React
+* Velocity.js
+* ES6 w/ Babel transpiling

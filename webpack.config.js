@@ -1,48 +1,48 @@
 var path = require('path'),
     webpack = require('webpack');
 
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
   cache: true,
   debug: true,
   entry: {
-    app: './app/app'
+    bundle: './src/js/main.es6'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: 'dist/',
+    path: __dirname + '/dist/assets/',
+    publicPath: "/assets/",
     filename: '[name].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[id].js'
   },
   module: {
     loaders: [
-      // required to write 'require('./style.css')'
-      { test: /\.css$/,    loader: 'style-loader!css-loader' },
+      // CSS + Less
+      // Extract css files
+      {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      },
+      // Optionally extract less files
+      // or any other compile-to-css language
+      {
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+      },
 
-      // ES6
-      { test: /\.es6$/,    loader: 'es6-loader' },
-
-      // required for bootstrap icons
-      { test: /\.woff$/,   loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff' },
-      { test: /\.ttf$/,    loader: 'file-loader?prefix=font/' },
-      { test: /\.eot$/,    loader: 'file-loader?prefix=font/' },
-      { test: /\.svg$/,    loader: 'file-loader?prefix=font/' },
+      // React (JSX) + ES6
+      { test: /\.(es6|jsx)$/, exclude: /node_modules/, loader: 'babel-loader'},
     ],
     noParse: /\.min\.js/
   },
   resolve: {
     modulesDirectories: ['bower_components', 'node_modules'],
-    extensions: ['', '.js', '.es6']
+    extensions: ['', '.js', '.es6', '.jsx']
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      // Automatically detect jQuery and $ as free var in modules
-      // and inject the jquery library
-      // This is required by many jquery plugins
-      jQuery: 'jquery',
-      $: 'jquery'
-    }),
+    new ExtractTextPlugin("[name].css"),
     new webpack.ResolverPlugin([
         new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-    ])
+    ], ["normal", "loader"])
   ]
 };
